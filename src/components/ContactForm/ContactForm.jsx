@@ -1,6 +1,6 @@
 import { Label, Input, Btn } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/contactsSlice/contactsSlice';
+import { addContact } from 'redux/operations';
 import { nanoid } from 'nanoid';
 
 export const ContactForm = () => {

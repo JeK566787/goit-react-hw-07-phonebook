@@ -3,12 +3,32 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { Container, Message } from './App.styled';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Test from './Test';
+import { getContacts } from 'redux/operations';
+import { useEffect } from 'react';
+import Loader from './Loader/Loader';
 
 export const App = () => {
   const contacts = useSelector(state => state.contacts.contacts);
+  const isLoading = useSelector(state => state.contacts.isLoading);
+  console.log(isLoading);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getContacts());
+    // const fetchMovies = async () => {
+    //   try {
+    //     const data = await getContacts();
+    //     console.log(data);
+    //   } catch (error) {
+    //     alert('something wrong');
+    //   } finally {
+    //   }
+    // };
+    // fetchMovies();
+  }, [dispatch]);
 
   return (
     <Container>
@@ -23,7 +43,7 @@ export const App = () => {
       ) : (
         <Message>Contacts list is empty yet</Message>
       )}
-      <Test />
+      {isLoading && <Loader />}
     </Container>
   );
 };
