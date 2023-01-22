@@ -1,8 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { getContacts } from 'redux/operations';
-import { deleteContact } from 'redux/operations';
-import { addContact } from 'redux/operations';
+import { getContacts, deleteContact, addContact } from 'redux/operations';
 
 const initialState = {
   contacts: [],
@@ -41,23 +39,24 @@ const contactsSlice = createSlice({
         state.isLoading = false;
         state.contacts = action.payload;
       })
-      .addCase(getContacts.rejected)
+      .addCase(getContacts.rejected, handleRejected)
       // addContacts
       .addCase(addContact.pending, handlePending)
       .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.contacts.push(action.payload);
       })
-      .addCase(addContact.rejected)
+      .addCase(addContact.rejected, handleRejected)
       // deleteContacts
-      .addCase(deleteContact.pending)
+      .addCase(deleteContact.pending, handlePending)
       .addCase(deleteContact.fulfilled, (state, action) => {
+        state.isLoading = false;
         const index = state.contacts.findIndex(
           contact => contact.id === action.payload.id
         );
         state.contacts.splice(index, 1);
       })
-      .addCase(deleteContact.rejected),
+      .addCase(deleteContact.rejected, handleRejected),
 });
 
 // Генераторы экшенов

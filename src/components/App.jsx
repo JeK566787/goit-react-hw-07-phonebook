@@ -12,7 +12,7 @@ import Loader from './Loader/Loader';
 export const App = () => {
   const contacts = useSelector(state => state.contacts.contacts);
   const isLoading = useSelector(state => state.contacts.isLoading);
-  console.log(isLoading);
+  const error = useSelector(state => state.contacts.error);
 
   const dispatch = useDispatch();
 
@@ -44,6 +44,7 @@ export const App = () => {
         <Message>Contacts list is empty yet</Message>
       )}
       {isLoading && <Loader />}
+      {error && <h1>{error}</h1>}
     </Container>
   );
 };
