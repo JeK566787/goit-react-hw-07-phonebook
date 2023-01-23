@@ -5,7 +5,7 @@ import { Container, Message } from './App.styled';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/operations';
 import { useEffect } from 'react';
 import Loader from './Loader/Loader';
 
@@ -17,7 +17,7 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getContacts());
+    dispatch(fetchContacts());
     // const fetchMovies = async () => {
     //   try {
     //     const data = await getContacts();
